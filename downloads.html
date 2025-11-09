@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Downloads & Resources — Global Campus</title>
+
+<!-- Simple modern styles embedded to match your index.html colour theme -->
+<style>
+  :root{
+    --royal-blue:#1E3A8A;
+    --royal-blue-2:#004aad;
+    --gold:#FFD700;
+    --muted:#6B7280;
+    --bg:#f7fafc;
+    --card:#ffffff;
+    --glass: rgba(255,255,255,0.06);
+    --max-width:1200px;
+    --radius:12px;
+    --shadow: 0 8px 30px rgba(14,20,30,0.08);
+    font-family: "Poppins", "Open Sans", Arial, sans-serif;
+  }
+
+  html,body{height:100%;margin:0;background:var(--bg);color:#0b1220;-webkit-font-smoothing:antialiased}
+  .container{max-width:var(--max-width);margin:28px auto;padding:0 18px}
+  header.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+  header.topbar h1{font-size:1.3rem;margin:0;color:var(--royal-blue-2);font-weight:700}
+  header.topbar p{margin:0;color:var(--muted);font-size:.92rem}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+  @media(max-width:980px){ .grid{grid-template-columns:1fr} }
+
+  /* ---------- Notification panel ---------- */
+  .notify {
+    background: linear-gradient(180deg, rgba(30,58,138,0.96), rgba(0,67,155,1));
+    color:white;
+    border-radius:var(--radius);
+    padding:18px;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 6px 10px 30px rgba(18,40,100,0.12);
+    min-height:380px;
+  }
+
+  /* right-side circular logo similar to index hero secondary-logo but embedded */
+  .notify .logo-wrap{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:86px;
+    height:86px;
+    background:var(--card);
+    border-radius:10px;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 28px rgba(0,0,0,0.12);
+  }
+  .notify .logo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .notify h2{margin:0 0 8px;font-size:1.05rem;letter-spacing:.2px}
+  .notify p.lead{margin:0 0 14px;color:rgba(255,255,255,0.95);font-weight:600}
+
+  /* vertical ticker area */
+  .ticker-viewport{height:280px; overflow:hidden; position:relative}
+  .ticker-list{display:block; will-change:transform; padding:0;margin:0}
+  .ticker-item{
+    list-style:none;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    margin-bottom:12px; padding:12px; border-radius:10px; cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .ticker-item:hover{ transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.18); background: rgba(255,255,255,0.12) }
+
+  .ticker-item .dot{width:10px;height:10px;border-radius:50%;flex:0 0 10px;margin-top:6px;background:var(--gold)}
+  .ticker-item .meta{flex:1}
+  .ticker-item h4{margin:0;color:#fff;font-size:0.98rem}
+  .ticker-item p{margin:6px 0 0;color:rgba(255,255,255,0.9);font-size:.88rem}
+  .ticker-item small{display:block;margin-top:6px;color:rgba(255,255,255,0.72);font-size:.78rem}
+
+  /* controls */
+  .notify .controls{display:flex;gap:8px;margin-top:12px;align-items:center}
+  .notify .controls button{
+    background:transparent;border:1px solid rgba(255,255,255,0.14);color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600
+  }
+  .notify .controls button:hover{background:rgba(255,255,255,0.06)}
+
+  /* little animated ribbons */
+  .ribbon{
+    position:absolute;left:-36px;top:40%;
+    transform:rotate(-18deg);
+    background:linear-gradient(90deg,var(--gold),#ffd14d);
+    color:#0b1220;padding:6px 86px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.12);
+    font-weight:700;font-size:.82rem;opacity:.98;
+  }
+
+  /* ---------- Downloads area ---------- */
+  .downloads{
+    background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);
+  }
+  .downloads .toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap}
+  .search{
+    display:flex;gap:8px;align-items:center;background:#f1f6ff;padding:8px;border-radius:10px;border:1px solid #e6eefc;
+  }
+  .search input{border:0;background:transparent;outline:none;padding:6px 6px;font-size:0.95rem}
+
+  .filters{display:flex;gap:8px;align-items:center}
+  .filters select{padding:8px;border-radius:8px;border:1px solid #e6eefc;background:#fff}
+
+  /* sections as cards */
+  .section-card{margin-bottom:18px;padding:14px;border-radius:12px;border:1px solid #eef3ff;background:linear-gradient(180deg,#fff,#fbfdff)}
+  .section-card h3{margin:0 0 10px;color:var(--royal-blue-2)}
+  .files-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .file{
+    background:linear-gradient(180deg,#fff,#fcfeff);border-radius:12px;padding:12px;border:1px solid #eef4ff;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(14,20,30,0.04);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .file:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(14,20,30,0.08)}
+  .file .icon{width:54px;height:54px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#eef3fb;flex:0 0 54px}
+  .file .icon svg{width:30px;height:30px;opacity:.95}
+  .file .meta{flex:1}
+  .file .meta b{display:block;font-size:.98rem;color:#072047}
+  .file .meta small{display:block;color:var(--muted);margin-top:6px}
+  .file .actions{display:flex;flex-direction:column;gap:8px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+  .btn.preview{background:transparent;color:var(--royal-blue-2);border:1px solid #e6eefc}
+  .btn.download{background:var(--royal-blue-2);color:white}
+
+  /* badge */
+  .badge{background:#f3f6ff;color:var(--royal-blue-2);padding:4px 8px;border-radius:999px;font-weight:700;font-size:.78rem}
+
+  /* modal preview */
+  .modal {
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,10,20,0.56);z-index:2000;
+  }
+  .modal.open{display:flex}
+  .modal-dialog{width:92%;max-width:980px;background:#fff;border-radius:12px;padding:12px;box-shadow:0 20px 60px rgba(2,6,23,0.6)}
+  .modal-header{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #eef3ff;padding-bottom:8px;margin-bottom:8px}
+  .modal-body{height:70vh;overflow:auto}
+  .close-btn{background:transparent;border:0;font-size:18px;cursor:pointer;color:var(--muted)}
+  iframe.viewer{width:100%;height:100%;border:0;border-radius:6px}
+
+  /* small helpers */
+  .muted{color:var(--muted)}
+  .small{font-size:.85rem}
+</style>
+</head>
+<body>
+
+<div class="container" role="main">
+
+  <header class="topbar" aria-label="Downloads header">
+    <div>
+      <h1>Downloads & Resources</h1>
+      <p class="small muted">Section-wise forms, notices, templates and reports — ready to preview & download.</p>
+    </div>
+    <div class="badge">College Code: MU-1283</div>
+  </header>
+
+  <div class="grid" aria-live="polite">
+
+    <!-- ========== NOTIFICATION PANEL (LEFT) ========== -->
+    <aside class="notify" aria-label="Notifications">
+      <div class="logo-wrap" aria-hidden="true">
+        <!-- use same A.jpg as in index.html -->
+        <img src="A.jpg" alt="Global Campus logo" onerror="this.style.display='none'">
+      </div>
+
+      <div class="ribbon" aria-hidden="true">NEW • NOTICE BOARD</div>
+
+      <h2>College Notifications</h2>
+      <p class="lead">Click any item to preview — PDF, image or document.</p>
+
+      <!-- ticker / vertical loop. We'll duplicate list items by JS for seamless loop -->
+      <div class="ticker-viewport" id="tickerViewport" tabindex="0" aria-label="Notification ticker">
+        <ul class="ticker-list" id="tickerList" role="list"></ul>
+      </div>
+
+      <div class="controls" style="margin-top:10px">
+        <button id="pauseBtn" aria-pressed="false" title="Pause notifications">Pause</button>
+        <button id="openAll" title="Open recent">Open Latest</button>
+      </div>
+    </aside>
+
+    <!-- ========== DOWNLOADS (RIGHT) ========== -->
+    <section class="downloads" aria-label="Downloads list">
+      <div class="toolbar">
+        <div class="search" role="search" aria-label="Search downloads">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#0b1220" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="searchInput" placeholder="Search files, e.g. admission, journal, notice..." aria-label="Search files">
+        </div>
+
+        <div class="filters">
+          <select id="filterSection" aria-label="Filter by section">
+            <option value="">All Sections</option>
+            <option value="primary">Primary</option>
+            <option value="secondary">Secondary</option>
+            <option value="degree">Degree</option>
+            <option value="notice">Notices</option>
+          </select>
+
+          <select id="sortBy" aria-label="Sort files">
+            <option value="recent">Sort: Recent</option>
+            <option value="alpha">Sort: A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Primary -->
+      <div class="section-card" data-section="primary" aria-labelledby="primaryHeading">
+        <h3 id="primaryHeading">Primary Section <span class="small muted">— forms & transfers</span></h3>
+        <div class="files-grid" id="primaryGrid"></div>
+      </div>
+
+      <!-- Secondary -->
+      <div class="section-card" data-section="secondary" aria-labelledby="secondaryHeading">
+        <h3 id="secondaryHeading">Secondary Section <span class="small muted">— board notices & forms</span></h3>
+        <div class="files-grid" id="secondaryGrid"></div>
+      </div>
+
+      <!-- Degree -->
+      <div class="section-card" data-section="degree" aria-labelledby="degreeHeading">
+        <h3 id="degreeHeading">Degree Section <span class="small muted">— templates, reports & guidance</span></h3>
+        <div class="files-grid" id="degreeGrid"></div>
+      </div>
+    </section>
+
+  </div><!-- /grid -->
+
+</div><!-- /container -->
+
+<!-- ========== Modal Preview ========== -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-header">
+      <div>
+        <strong id="modalTitle">Preview</strong>
+        <div class="small muted" id="modalMeta"></div>
+      </div>
+      <div>
+        <button class="close-btn" id="modalClose" aria-label="Close preview">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- dynamic content (iframe/img) inserted here -->
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCRIPT: data, rendering, ticker, modal ========== -->
+<script>
+/* ---------- Data: files & notifications ----------
+   Replace file paths with your real uploaded files in repository.
+   Structure: { id, section, title, file, type, updated }
+*/
+const FILES = [
+  /* Primary */
+  {id:'p1', section:'primary', title:'Primary Admission Form (2025)', file:'downloads/primary_admission_form.pdf', type:'pdf', updated:'2025-10-16'},
+  {id:'p2', section:'primary', title:'Primary Transfer Form', file:'downloads/primary_transfer_form.pdf', type:'pdf', updated:'2025-07-08'},
+
+  /* Secondary */
+  {id:'s1', section:'secondary', title:'Secondary Admission Form (HSC)', file:'downloads/secondary_admission_form.pdf', type:'pdf', updated:'2025-08-10'},
+  {id:'s2', section:'secondary', title:'Form 15 (Exam)', file:'downloads/form15.pdf', type:'pdf', updated:'2025-09-22'},
+  {id:'s3', section:'secondary', title:'Board Exam Notices - November', file:'notices/board-exam.pdf', type:'pdf', updated:'2025-11-02'},
+
+  /* Degree */
+  {id:'d1', section:'degree', title:'Degree Admission Form (B.Sc. IT)', file:'downloads/degree_admission_form.pdf', type:'pdf', updated:'2025-09-01'},
+  {id:'d2', section:'degree', title:'Journal Template (DOCX)', file:'downloads/journal_template.docx', type:'doc', updated:'2025-07-22'},
+  {id:'d3', section:'degree', title:'Committee Reports (Annual)', file:'downloads/committee_report.pdf', type:'pdf', updated:'2025-06-15'},
+  {id:'d4', section:'degree', title:'Career Guidance Brochure', file:'downloads/career_guidance.pdf', type:'pdf', updated:'2025-08-28'}
+];
+
+/* ---------- Notifications list ----------
+   Each notification should point to a file (pdf/img/doc) or external link.
+*/
+const NOTICES = [
+  {id:'n1', title:'Board Exam Notice - Nov 2025', excerpt:'Important instructions for board exam candidates.', file:'notices/board-exam.pdf', date:'2025-11-02'},
+  {id:'n2', title:'Open Day Schedule', excerpt:'Open day on 18th November — cultural & tech events.', file:'notices/open-day.jpg', date:'2025-10-28'},
+  {id:'n3', title:'Admissions Open - Degree', excerpt:'Forms available for 2025-26 admissions.', file:'downloads/degree_admission_form.pdf', date:'2025-10-01'},
+  {id:'n4', title:'NSS Community Drive Report', excerpt:'Download the NSS report and participation certificate.', file:'notices/nss-activity.pdf', date:'2025-09-12'},
+  {id:'n5', title:'Holiday Notice - Diwali', excerpt:'College closed from 1st to 5th November.', file:'notices/holiday.jpg', date:'2025-10-20'}
+];
+
+/* ---------- UTIL helpers ---------- */
+function formatDate(d){ const dt = new Date(d); if(isNaN(dt)) return d; return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+
+/* ---------- Render files into grids ---------- */
+function renderFiles(files){
+  const primary = document.getElementById('primaryGrid');
+  const secondary = document.getElementById('secondaryGrid');
+  const degree = document.getElementById('degreeGrid');
+  primary.innerHTML=''; secondary.innerHTML=''; degree.innerHTML='';
+
+  files.forEach(f=>{
+    const el = document.createElement('div');
+    el.className = 'file';
+    el.dataset.section = f.section;
+    el.innerHTML = `
+      <div class="icon" aria-hidden="true">${fileIconSVG(f.type)}</div>
+      <div class="meta">
+        <b>${escapeHtml(f.title)}</b>
+        <small class="small muted">Updated: ${formatDate(f.updated)}</small>
+      </div>
+      <div class="actions" aria-hidden="true">
+        <button class="btn preview" data-file="${f.file}" data-type="${f.type}" data-title="${escapeHtml(f.title)}">Preview</button>
+        <a class="btn download" href="${f.file}" download aria-label="Download ${escapeHtml(f.title)}">Download</a>
+      </div>
+    `;
+    if(f.section==='primary') primary.appendChild(el);
+    if(f.section==='secondary') secondary.appendChild(el);
+    if(f.section==='degree') degree.appendChild(el);
+  });
+
+  // attach preview handlers
+  document.querySelectorAll('.btn.preview').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      const file = btn.dataset.file;
+      const type = btn.dataset.type;
+      const title = btn.dataset.title;
+      openModal(file,type,title);
+    });
+  });
+}
+
+/* ---------- file icon helper ---------- */
+function fileIconSVG(type){
+  if(!type) type='pdf';
+  if(type==='pdf') return `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff"/><path d="M7 8h6" stroke="#e53935" stroke-width="1.6"/><path d="M7 12h6" stroke="#e53935" stroke-width="1.6"/><path d="M7 16h6" stroke="#e53935" stroke-width="1.6"/></svg>`;
+  if(type==='doc' || type==='docx') return `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff"/><path d="M7 7h10" stroke="#1E88E5" stroke-width="1.6"/><path d="M7 11h10" stroke="#1E88E5" stroke-width="1.6"/></svg>`;
+  return `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff"/><path d="M7 7h10" stroke="#6B7280" stroke-width="1.6"/></svg>`;
+}
+
+/* escape helper to avoid basic XSS from inserted titles */
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[ch])); }
+
+/* ---------- Render notifications into ticker ---------- */
+function renderTicker(items){
+  const list = document.getElementById('tickerList');
+  list.innerHTML = ''; // will be duplicated later for continuous scroll
+  items.forEach(n=>{
+    const li = document.createElement('li');
+    li.className='ticker-item';
+    li.tabIndex=0;
+    li.setAttribute('role','button');
+    li.dataset.file = n.file;
+    li.dataset.type = detectType(n.file);
+    li.innerHTML = `<div class="dot" aria-hidden="true"></div>
+      <div class="meta">
+        <h4>${escapeHtml(n.title)}</h4>
+        <p class="small">${escapeHtml(n.excerpt)}</p>
+        <small>${formatDate(n.date)}</small>
+      </div>`;
+    // clicking opens preview
+    li.addEventListener('click', ()=> openModal(n.file,li.dataset.type,n.title));
+    li.addEventListener('keydown', (e)=>{ if(e.key==='Enter') openModal(n.file,li.dataset.type,n.title); });
+    list.appendChild(li);
+  });
+
+  // Duplicate items to make seamless scroll loop (CSS/JS will animate)
+  // Clone nodes
+  const clone = list.cloneNode(true);
+  clone.id = 'tickerListClone';
+  list.parentNode.appendChild(clone);
+
+  // start scrolling with JS (translateY)
+  startTickerAnimation();
+}
+
+/* detect type by extension */
+function detectType(path){
+  const ext = (path.split('.').pop()||'').toLowerCase();
+  if(ext==='pdf') return 'pdf';
+  if(ext==='jpg' || ext==='jpeg' || ext==='png' || ext==='webp') return 'image';
+  if(ext==='doc' || ext==='docx') return 'doc';
+  return 'file';
+}
+
+/* ---------- Ticker animation: smooth continuous upward scrolling ---------- */
+let tickerAnimLoop=null;
+function startTickerAnimation(){
+  const viewport = document.getElementById('tickerViewport');
+  const list = document.getElementById('tickerList');
+  const clone = document.getElementById('tickerListClone');
+  // ensure heights calculated
+  cancelAnimationFrame(tickerAnimLoop);
+  let pos = 0;
+  const speed = 30; // pixels per 60s roughly - adjust for speed
+  function step(){
+    pos += 0.35; // tweak speed
+    if(pos >= list.scrollHeight) pos = 0;
+    list.style.transform = `translateY(-${pos}px)`;
+    clone.style.transform = `translateY(-${pos}px)`;
+    tickerAnimLoop = requestAnimationFrame(step);
+  }
+  // pause/resume handlers
+  viewport.addEventListener('mouseenter', ()=> cancelAnimationFrame(tickerAnimLoop));
+  viewport.addEventListener('mouseleave', ()=> tickerAnimLoop = requestAnimationFrame(step));
+  // keyboard focus pause
+  viewport.addEventListener('focusin', ()=> cancelAnimationFrame(tickerAnimLoop));
+  viewport.addEventListener('focusout', ()=> tickerAnimLoop = requestAnimationFrame(step));
+  // start
+  tickerAnimLoop = requestAnimationFrame(step);
+}
+
+/* ---------- Modal logic ---------- */
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const modalTitle = document.getElementById('modalTitle');
+const modalMeta = document.getElementById('modalMeta');
+function openModal(file,type,title){
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  modalTitle.textContent = title || 'Preview';
+  modalMeta.textContent = file || '';
+  modalBody.innerHTML = '';
+
+  // choose preview method
+  if(type==='pdf'){
+    const iframe = document.createElement('iframe');
+    iframe.className='viewer';
+    iframe.src = file;
+    iframe.title = title;
+    modalBody.appendChild(iframe);
+  } else if(type==='image'){
+    const img = document.createElement('img');
+    img.src = file;
+    img.alt = title;
+    img.style.maxWidth='100%';
+    img.style.maxHeight='100%';
+    modalBody.appendChild(img);
+  } else {
+    // fallback: show download link and brief text
+    const box = document.createElement('div');
+    box.innerHTML = `<p class="small muted">Preview not available for this file type. You can download it below.</p>
+      <p><a href="${file}" class="btn download" download>Download ${escapeHtml(title)}</a></p>`;
+    modalBody.appendChild(box);
+  }
+
+  // focus for keyboard
+  document.getElementById('modalClose').focus();
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  modalBody.innerHTML='';
+}
+
+/* close on Escape */
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+/* ---------- Populate initial UI ---------- */
+renderFiles(FILES);
+renderTicker(NOTICES);
+
+/* ---------- Interactive filters & search ---------- */
+const searchEl = document.getElementById('searchInput');
+const filterEl = document.getElementById('filterSection');
+const sortEl = document.getElementById('sortBy');
+
+function applyFilters(){
+  const q = searchEl.value.trim().toLowerCase();
+  const section = filterEl.value;
+  const sort = sortEl.value;
+
+  let result = FILES.filter(f=>{
+    if(section && f.section !== section) return false;
+    if(q){
+      return (f.title.toLowerCase().includes(q) || f.file.toLowerCase().includes(q));
+    }
+    return true;
+  });
+
+  if(sort==='alpha') result.sort((a,b)=> a.title.localeCompare(b.title));
+  else result.sort((a,b)=> new Date(b.updated) - new Date(a.updated));
+
+  renderFiles(result);
+}
+
+searchEl.addEventListener('input', applyFilters);
+filterEl.addEventListener('change', applyFilters);
+sortEl.addEventListener('change', applyFilters);
+
+/* ---------- Controls for ticker ---------- */
+const pauseBtn = document.getElementById('pauseBtn');
+let paused=false;
+pauseBtn.addEventListener('click', ()=>{
+  paused = !paused;
+  if(paused){ cancelAnimationFrame(tickerAnimLoop); pauseBtn.textContent='Resume'; pauseBtn.setAttribute('aria-pressed','true'); }
+  else { tickerAnimLoop = requestAnimationFrame(()=>startTickerAnimation()); pauseBtn.textContent='Pause'; pauseBtn.setAttribute('aria-pressed','false'); }
+});
+
+document.getElementById('openAll').addEventListener('click', ()=>{
+  // open latest notification in preview
+  if(NOTICES && NOTICES.length) {
+    const n = NOTICES[0];
+    openModal(n.file, detectType(n.file), n.title);
+  }
+});
+
+/* ---------- small accessibility: focus trap in modal (simple) ---------- */
+document.getElementById('modal').addEventListener('keydown', function(e){
+  if(e.key==='Tab') e.stopPropagation();
+});
+
+/* ---------- END ---------- */
+</script>
+
+</body>
+</html>
